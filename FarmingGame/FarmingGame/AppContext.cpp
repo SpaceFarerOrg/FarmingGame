@@ -2,8 +2,11 @@
 
 // ----------------------------------------------------------------------
 
-SAppContext::SAppContext( CRenderQueue& InRenderQueue )
-	: RenderQueue( InRenderQueue )
+SAppContext::SAppContext(
+	CRenderQueue& InRenderQueue,
+	CTextureBank& InTextureBank)
+	: RenderQueue(InRenderQueue)
+	, TextureBank(InTextureBank)
 {
 }
 

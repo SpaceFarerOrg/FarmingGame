@@ -5,6 +5,7 @@
 
 #include "AppContext.h"
 #include "Renderer.h"
+#include "TextureBank.h"
 #include "Game.h"
 
 // ----------------------------------------------------------------------
@@ -17,7 +18,11 @@ public:
 private:
 	sf::RenderWindow Window;
 	sf::Clock TickTimer;
+
+	// Rendering
 	CRenderer Renderer;
+	CTextureBank TextureBank;
+
 	SAppContext Context;
 	CGame Game;
 };

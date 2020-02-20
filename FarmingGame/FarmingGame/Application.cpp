@@ -5,7 +5,8 @@
 CApplication::CApplication()
 	: Window()
 	, Renderer()
-	, Context(Renderer.GetQueue())
+	, TextureBank()
+	, Context(Renderer.GetQueue(), TextureBank)
 	, Game()
 {
 	sf::VideoMode VideoMode = sf::VideoMode::getDesktopMode();
@@ -13,6 +14,8 @@ CApplication::CApplication()
 	VideoMode.height = 800;
 
 	Window.create(VideoMode, "FarmingGame");
+
+	Game.Startup(Context);
 }
 
 // ----------------------------------------------------------------------
