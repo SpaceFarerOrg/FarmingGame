@@ -1,0 +1,11 @@
+*.inl
+*.tlog
+*.log
+*/.vs/*
+*.ilk
+*.exe
+*.idb
+*.pdb
+*.lastbuildstate
+*.user
+*.filters
