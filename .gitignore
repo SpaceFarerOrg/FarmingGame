@@ -1,4 +1,3 @@
-*.inl
 *.tlog
 *.log
 */.vs/*
@@ -10,3 +9,4 @@
 *.user
 *.filters
 *.obj
+*/enc_temp_folder/*

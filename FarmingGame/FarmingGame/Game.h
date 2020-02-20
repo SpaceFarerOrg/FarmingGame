@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "GameBoard.h"
+
 struct SAppContext;
 
 // ----------------------------------------------------------------------
@@ -12,8 +14,8 @@ public:
 	CGame() = default;
 	void Startup( SAppContext& InContext );
 	void Tick(SAppContext& InContext, float InTimeDelta);
-
-	sf::Sprite TestSprite;
+private:
+	CGameBoard GameBoard;
 };
 
 // ----------------------------------------------------------------------

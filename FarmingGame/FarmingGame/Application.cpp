@@ -10,8 +10,8 @@ CApplication::CApplication()
 	, Game()
 {
 	sf::VideoMode VideoMode = sf::VideoMode::getDesktopMode();
-	VideoMode.width = 800;
-	VideoMode.height = 800;
+	VideoMode.width = 1920;
+	VideoMode.height = 1080;
 
 	Window.create(VideoMode, "FarmingGame");
 

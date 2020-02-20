@@ -6,14 +6,14 @@
 
 void CGame::Startup(SAppContext& InContext)
 {
-	TestSprite.setTexture(InContext.TextureBank.GetTexture("Test"));
+	GameBoard.Load(InContext);
 }
 
 // ----------------------------------------------------------------------
 
 void CGame::Tick(SAppContext& InContext, float InTimeDelta)
 {
-	InContext.RenderQueue.EnqueueCommand(TestSprite);
+	GameBoard.Draw(InContext);
 }
 
 // ----------------------------------------------------------------------
