@@ -8,7 +8,16 @@
 #pragma comment(lib, "sfml-graphics")
 #endif
 
+#include "Application.h"
+
 int main()
 {
+	CApplication App;
+
+	while (true)
+	{
+		App.Tick();
+	}
+
 	return 0;
 }
