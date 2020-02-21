@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include <SFML/Window/Event.hpp>
+
 // ----------------------------------------------------------------------
 
 CApplication::CApplication()
@@ -8,6 +10,7 @@ CApplication::CApplication()
 	, TextureBank()
 	, Context(Renderer.GetQueue(), TextureBank)
 	, Game()
+	, ShouldRun(true)
 {
 	sf::VideoMode VideoMode = sf::VideoMode::getDesktopMode();
 	VideoMode.width = 1920;
@@ -22,10 +25,19 @@ CApplication::CApplication()
 
 // ----------------------------------------------------------------------
 
+bool CApplication::GetShouldRun() const
+{
+	return ShouldRun;
+}
+
+// ----------------------------------------------------------------------
+
 void CApplication::Tick()
 {
 	const float DeltaTime = TickTimer.getElapsedTime().asSeconds();
 	TickTimer.restart();
+
+	HandleWindowEvents();
 
 	Window.clear(sf::Color(50, 150, 250, 250));
 
@@ -34,6 +46,20 @@ void CApplication::Tick()
 	Renderer.RunRender(Window);
 
 	Window.display();
+}
+
+// ----------------------------------------------------------------------
+
+void CApplication::HandleWindowEvents()
+{
+	sf::Event Event;
+	while (Window.pollEvent(Event))
+	{
+		if (Event.type == sf::Event::Closed)
+		{
+			ShouldRun = false;
+		}
+	}
 }
 
 // ----------------------------------------------------------------------

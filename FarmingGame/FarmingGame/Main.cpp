@@ -14,7 +14,7 @@ int main()
 {
 	CApplication App;
 
-	while (true)
+	while (App.GetShouldRun())
 	{
 		App.Tick();
 	}

@@ -14,8 +14,13 @@ class CApplication
 {
 public:
 	CApplication();
+	
+	bool GetShouldRun() const;
+
 	void Tick();
 private:
+	void HandleWindowEvents();
+
 	sf::RenderWindow Window;
 	sf::Clock TickTimer;
 
@@ -25,6 +30,8 @@ private:
 
 	SAppContext Context;
 	CGame Game;
+
+	bool ShouldRun;
 };
 
 // ----------------------------------------------------------------------
