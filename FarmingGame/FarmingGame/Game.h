@@ -11,7 +11,7 @@ struct SAppContext;
 class CGame
 {
 public:
-	CGame() = default;
+	CGame();
 	void Startup( SAppContext& InContext );
 	void Tick(SAppContext& InContext, float InTimeDelta);
 private:

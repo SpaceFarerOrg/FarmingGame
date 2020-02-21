@@ -31,8 +31,10 @@
   <ItemGroup>
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BoardSquare.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameStates.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="TextureBank.h" />

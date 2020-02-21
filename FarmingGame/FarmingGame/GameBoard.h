@@ -1,42 +1,47 @@
 #pragma once
 
-#include <SFML/Graphics/RectangleShape.hpp>
+#include "BoardSquare.h"
 #include <array>
+
+// ----------------------------------------------------------------------
 
 struct SAppContext;
 
-enum class EBoardEntry
+// ----------------------------------------------------------------------
+
+constexpr static unsigned int CalculateTileCount(unsigned int InRowLen, unsigned int InRowCount)
 {
-	None,
-	Farm,
-	VictoryFarm,
-	Chance,
-	Event,
-	Animal,
-	Field,
-	Seed,
-};
+	unsigned int Val = 0;
+	for (unsigned int i = 0; i < InRowCount; ++i)
+	{
+		Val += InRowLen;
+	}
+
+	return Val;
+}
+
+// ----------------------------------------------------------------------
 
 class CGameBoard
 {
 public:
-	CGameBoard();
+	explicit CGameBoard(unsigned int InBoardSquareDimension);
+
+	void MovePlayer(unsigned int InPlayerID, unsigned int InMoveAmount);
+	const CBoardSquareBase& GetPlayerBoardSquare( unsigned int InPlayerID ) const;
 
 	void Load(SAppContext& InAppContext);
 	void Draw(SAppContext& InAppContext);
 private:
-	void GenerateBoard();
-	
-	std::array< std::array<EBoardEntry, 7>, 7 > BoardLayout;
+	void SetUpBoard(SAppContext& InAppContext);
 
-	unsigned int TileSize;
-	sf::RectangleShape BackgroundTile;
-	
-	sf::RectangleShape FarmTile;
-	sf::RectangleShape ChanceTile;
-	sf::RectangleShape EventTile;
-	sf::RectangleShape AnimalTile;
-	sf::RectangleShape SeedTile;
-	sf::RectangleShape FieldTile;
-	sf::RectangleShape TileBG;
+	constexpr static unsigned int RowLen = 6;
+	constexpr static unsigned int RowCount = 4;
+	constexpr static unsigned int TileCount = CalculateTileCount(RowLen, RowCount);
+
+	std::array<CBoardSquareBase*, TileCount> BoardRows;
+	unsigned int PlayerTilePosition[4];
+	const unsigned int BoardTileSize;
 };
+
+// ----------------------------------------------------------------------
