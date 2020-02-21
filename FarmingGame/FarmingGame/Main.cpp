@@ -22,6 +22,8 @@ int main()
 {
 	CApplication App;
 
+	Network::Message::RegisterNetworkMessages();
+
 #if SERVER
 	Server server(54000);
 #else

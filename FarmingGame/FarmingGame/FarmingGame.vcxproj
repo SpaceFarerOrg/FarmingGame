@@ -24,6 +24,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NetworkMessage.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="TextureBank.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameStates.h" />
+    <ClInclude Include="NetworkMessage.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="TextureBank.h" />
