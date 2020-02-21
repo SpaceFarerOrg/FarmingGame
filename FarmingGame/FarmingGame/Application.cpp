@@ -13,6 +13,8 @@ CApplication::CApplication()
 	VideoMode.width = 1920;
 	VideoMode.height = 1080;
 
+	Context.WindowDimensions = sf::Vector2u(VideoMode.width, VideoMode.height);
+
 	Window.create(VideoMode, "FarmingGame");
 
 	Game.Startup(Context);
