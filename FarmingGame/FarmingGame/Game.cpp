@@ -6,7 +6,7 @@
 
 CGame::CGame()
 	: TileSize(64)
-	, GameBoard(TileSize)
+	, GameBoard(TileSize, sf::Vector2i(2,2))
 	, BackgroundRect()
 {
 }

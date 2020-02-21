@@ -6,8 +6,9 @@
 
 // ----------------------------------------------------------------------
 
-CGameBoard::CGameBoard(unsigned int InBoardSquareDimension)
+CGameBoard::CGameBoard(unsigned int InBoardSquareDimension, const sf::Vector2i& InBoardTileOffset)
 	: BoardRows()
+	, BoardTileOffset(InBoardTileOffset)
 	, PlayerTilePosition()
 	, BoardTileSize(InBoardSquareDimension)
 {
@@ -67,19 +68,19 @@ void CGameBoard::SetUpBoard(SAppContext& InAppContext)
 
 		if (i / RowLen == 0)
 		{
-			BoardSquare->SetPosition(TileX++, TileY);
+			BoardSquare->SetPosition(BoardTileOffset.x + TileX++, BoardTileOffset.y + TileY);
 		}
 		if (i / RowLen == 1)
 		{
-			BoardSquare->SetPosition(TileX, TileY++);
+			BoardSquare->SetPosition(BoardTileOffset.x + TileX, BoardTileOffset.y + TileY++);
 		}
 		if (i / RowLen == 2)
 		{
-			BoardSquare->SetPosition(TileX--, TileY);
+			BoardSquare->SetPosition(BoardTileOffset.x + TileX--, BoardTileOffset.y + TileY);
 		}
 		if (i / RowLen == 3)
 		{
-			BoardSquare->SetPosition(TileX, TileY--);
+			BoardSquare->SetPosition(BoardTileOffset.x + TileX, BoardTileOffset.y + TileY--);
 		}
 	}
 
