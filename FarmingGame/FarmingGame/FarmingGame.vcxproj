@@ -27,6 +27,9 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="TextureBank.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppContext.h" />
@@ -38,6 +41,10 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="TextureBank.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="Networking.h" />
+    <ClInclude Include="Receiver.h" />
+    <ClInclude Include="Server.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
