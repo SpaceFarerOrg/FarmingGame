@@ -47,6 +47,7 @@
     <ClInclude Include="Networking.h" />
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="WorldGrid.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

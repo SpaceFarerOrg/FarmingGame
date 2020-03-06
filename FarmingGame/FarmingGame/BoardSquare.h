@@ -23,6 +23,11 @@ public:
 		Sprite.setTexture(&InContext.TextureBank.GetTexture(Name.c_str()));
 	}
 
+	sf::Vector2f GetPosition() const
+	{
+		return Sprite.getPosition();
+	}
+
 	void SetPosition(unsigned int InTileX, unsigned int InTileY)
 	{
 		Sprite.setPosition(sf::Vector2f(static_cast<float>(InTileX * SquareSize), static_cast<float>(InTileY * SquareSize) ));

@@ -29,6 +29,9 @@ class CGameBoard
 public:
 	explicit CGameBoard(unsigned int InBoardSquareDimension, const sf::Vector2i& InBoardTileOffset);
 
+	void SetPlayerCount(unsigned short InPlayerCount);
+	void SetPlayerTexture(unsigned int InPlayerID, const sf::Texture& InTexture);
+
 	void MovePlayer(unsigned int InPlayerID, unsigned int InMoveAmount);
 	const CBoardSquareBase& GetPlayerBoardSquare( unsigned int InPlayerID ) const;
 
@@ -43,7 +46,11 @@ private:
 
 	std::array<CBoardSquareBase*, TileCount> BoardRows;
 	sf::Vector2i BoardTileOffset;
+
 	unsigned int PlayerTilePosition[4];
+	sf::RectangleShape PlayerSprites[4];
+
+	unsigned short PlayerCount;
 	const unsigned int BoardTileSize;
 };
 
