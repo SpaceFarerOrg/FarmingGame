@@ -9,7 +9,7 @@ CApplication::CApplication()
 	, Renderer()
 	, TextureBank()
 	, Context(Renderer.GetQueue(), TextureBank)
-	, Game()
+	, StateStack(Context)
 	, ShouldRun(true)
 {
 	sf::VideoMode VideoMode = sf::VideoMode::getDesktopMode();
@@ -20,14 +20,15 @@ CApplication::CApplication()
 
 	Window.create(VideoMode, "FarmingGame");
 
-	Game.Startup(Context);
+	StateStack.PushState(new CGame());
+
 }
 
 // ----------------------------------------------------------------------
 
 bool CApplication::GetShouldRun() const
 {
-	return ShouldRun;
+	return !StateStack.IsEmpty();
 }
 
 // ----------------------------------------------------------------------
@@ -41,7 +42,8 @@ void CApplication::Tick()
 
 	Window.clear(sf::Color(50, 150, 250, 250));
 
-	Game.Tick(Context, DeltaTime);
+	StateStack.Tick(DeltaTime);
+	StateStack.Draw();
 
 	Renderer.RunRender(Window);
 

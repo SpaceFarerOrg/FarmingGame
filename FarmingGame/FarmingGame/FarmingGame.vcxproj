@@ -27,6 +27,7 @@
     <ClCompile Include="NetworkMessage.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
+    <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextureBank.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Receiver.cpp" />
@@ -35,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BaseState.h" />
     <ClInclude Include="BoardSquare.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBoard.h" />
@@ -42,6 +44,7 @@
     <ClInclude Include="NetworkMessage.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="StateStack.h" />
     <ClInclude Include="TextureBank.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Networking.h" />

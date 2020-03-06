@@ -15,7 +15,7 @@ CGame::CGame()
 
 // ----------------------------------------------------------------------
 
-void CGame::Startup(SAppContext& InContext)
+void CGame::OnStart(SAppContext& InContext)
 {
 	GameBoard.Load(InContext);
 	BackgroundRect.setTexture(&InContext.TextureBank.GetTexture("GrassTile"));
@@ -33,7 +33,7 @@ void CGame::Startup(SAppContext& InContext)
 
 float SecondNextTime = 0.f;
 
-void CGame::Tick(SAppContext& InContext, float InTimeDelta)
+EStateTickResult CGame::Tick(float InTimeDelta, SAppContext& InContext)
 {
 	SecondNextTime += InTimeDelta;
 
@@ -46,9 +46,20 @@ void CGame::Tick(SAppContext& InContext, float InTimeDelta)
 		SecondNextTime = 0.f;
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		return EStateTickResult::Pop;
+	}
 
-	GameBoard.Draw(InContext);
-	DrawBackground(InContext);
+	return EStateTickResult::Keep;
+}
+
+// ----------------------------------------------------------------------
+
+void CGame::Render(SAppContext& InAppContext)
+{
+	GameBoard.Draw(InAppContext);
+	DrawBackground(InAppContext);
 }
 
 // ----------------------------------------------------------------------

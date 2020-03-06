@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "TextureBank.h"
 #include "Game.h"
+#include "StateStack.h"
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +30,8 @@ private:
 	CTextureBank TextureBank;
 
 	SAppContext Context;
-	CGame Game;
+
+	CStateStack StateStack;
 
 	bool ShouldRun;
 };
