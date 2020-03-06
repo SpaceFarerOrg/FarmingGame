@@ -9,11 +9,11 @@ struct SAppContext;
 
 // ----------------------------------------------------------------------
 
-class CGame final
+class CGameState final
 	: public CBaseState
 {
 public:
-	CGame();
+	CGameState();
 
 	EStateType GetType() override { return EStateType::Full; }
 

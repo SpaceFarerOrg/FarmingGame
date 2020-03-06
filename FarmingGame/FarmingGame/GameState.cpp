@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "GameState.h"
 
 #include "AppContext.h"
 
@@ -6,7 +6,7 @@
 
 // ----------------------------------------------------------------------
 
-CGame::CGame()
+CGameState::CGameState()
 	: TileSize(80)
 	, GameBoard(TileSize, sf::Vector2i(2,2))
 	, BackgroundRect()
@@ -15,7 +15,7 @@ CGame::CGame()
 
 // ----------------------------------------------------------------------
 
-void CGame::OnStart(SAppContext& InContext)
+void CGameState::OnStart(SAppContext& InContext)
 {
 	GameBoard.Load(InContext);
 	BackgroundRect.setTexture(&InContext.TextureBank.GetTexture("GrassTile"));
@@ -33,7 +33,7 @@ void CGame::OnStart(SAppContext& InContext)
 
 float SecondNextTime = 0.f;
 
-EStateTickResult CGame::Tick(float InTimeDelta, SAppContext& InContext)
+EStateTickResult CGameState::Tick(float InTimeDelta, SAppContext& InContext)
 {
 	SecondNextTime += InTimeDelta;
 
@@ -56,7 +56,7 @@ EStateTickResult CGame::Tick(float InTimeDelta, SAppContext& InContext)
 
 // ----------------------------------------------------------------------
 
-void CGame::Render(SAppContext& InAppContext)
+void CGameState::Render(SAppContext& InAppContext)
 {
 	GameBoard.Draw(InAppContext);
 	DrawBackground(InAppContext);
@@ -64,7 +64,7 @@ void CGame::Render(SAppContext& InAppContext)
 
 // ----------------------------------------------------------------------
 
-void CGame::DrawBackground(SAppContext& InContext)
+void CGameState::DrawBackground(SAppContext& InContext)
 {
 	const unsigned int XTilesToDraw = InContext.WindowDimensions.x / TileSize + 1;
 	const unsigned int YTilesToDraw = InContext.WindowDimensions.y / TileSize + 1;

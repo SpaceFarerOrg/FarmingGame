@@ -6,7 +6,6 @@
 #include "AppContext.h"
 #include "Renderer.h"
 #include "TextureBank.h"
-#include "Game.h"
 #include "StateStack.h"
 
 // ----------------------------------------------------------------------

@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "GameState.h"
+
 #include <SFML/Window/Event.hpp>
 
 // ----------------------------------------------------------------------
@@ -20,7 +22,7 @@ CApplication::CApplication()
 
 	Window.create(VideoMode, "FarmingGame");
 
-	StateStack.PushState(new CGame());
+	StateStack.PushState(new CGameState());
 
 }
 
