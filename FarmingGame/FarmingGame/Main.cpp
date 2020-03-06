@@ -16,25 +16,14 @@
 
 using namespace Network;
 
-#define SERVER 0
+#define SERVER 1
 
 int main()
 {
 	CApplication App;
 
-	Network::Message::RegisterNetworkMessages();
-
-#if SERVER
-	Server server(54000);
-#else
-	Client client("Client", "81.231.243.157", 54000);
-#endif
-
 	while (App.GetShouldRun())
 	{
-#if SERVER
-		server.Tick();
-#endif
 		App.Tick();
 	}
 

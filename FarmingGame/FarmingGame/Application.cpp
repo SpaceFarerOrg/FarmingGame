@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include "GameState.h"
+#include "NetworkMessage.h"
 
 #include <SFML/Window/Event.hpp>
 
@@ -10,10 +11,12 @@ CApplication::CApplication()
 	: Window()
 	, Renderer()
 	, TextureBank()
-	, Context(Renderer.GetQueue(), TextureBank)
 	, StateStack(Context)
+	, Context(Renderer.GetQueue(), TextureBank, MessageQueue, NetworkQueue)
 	, ShouldRun(true)
 {
+	Message::RegisterNetworkMessages();
+
 	sf::VideoMode VideoMode = sf::VideoMode::getDesktopMode();
 	VideoMode.width = 1920;
 	VideoMode.height = 1080;
@@ -24,6 +27,8 @@ CApplication::CApplication()
 
 	StateStack.PushState(new CGameState());
 
+	Server = std::make_unique<Network::Server>(54000, Context);
+	Client = std::make_unique<Network::Client>("Pikachu", sf::IpAddress("192.168.1.1"), 54000, Context);
 }
 
 // ----------------------------------------------------------------------
@@ -37,6 +42,9 @@ bool CApplication::GetShouldRun() const
 
 void CApplication::Tick()
 {
+	NetworkQueue.SendAllEvents();
+	MessageQueue.SendAllEvents();
+
 	const float DeltaTime = TickTimer.getElapsedTime().asSeconds();
 	TickTimer.restart();
 
@@ -50,6 +58,12 @@ void CApplication::Tick()
 	Renderer.RunRender(Window);
 
 	Window.display();
+
+	NetworkQueue.DispatchEvent<Network::NetworkMessage>(1, sf::IpAddress("localhost").toInteger());
+	MessageQueue.DispatchEvent<Network::NetworkMessage>(0, 0);
+
+	Server->Tick();
+	Client->Tick();
 }
 
 // ----------------------------------------------------------------------

@@ -24,10 +24,16 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Messaging\MessageQueue.cpp" />
+    <ClCompile Include="Messaging\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Messaging\Subscribing\SubscriptionHandle.cpp" />
+    <ClCompile Include="Messaging\Subscribing\Subscriptions.cpp" />
     <ClCompile Include="NetworkMessage.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="Sender.cpp" />
+    <ClCompile Include="SenderReceiverBridge.cpp" />
     <ClCompile Include="TextureBank.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Receiver.cpp" />
@@ -41,10 +47,19 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameStates.h" />
+    <ClInclude Include="Messaging\MessageQueue.h" />
+    <ClInclude Include="Messaging\Messages\BaseMessage.h" />
+    <ClInclude Include="Messaging\Subscribing\MessageSubscriberList.h" />
+    <ClInclude Include="Messaging\Subscribing\MessageSubscriberListInterface.h" />
+    <ClInclude Include="Messaging\Subscribing\SubscriptionHandle.h" />
+    <ClInclude Include="Messaging\Subscribing\Subscriptions.h" />
     <ClInclude Include="NetworkMessage.h" />
+    <ClInclude Include="NetworkMessageQueue.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="Sender.h" />
+    <ClInclude Include="SenderReceiverBridge.h" />
     <ClInclude Include="TextureBank.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Networking.h" />
@@ -126,6 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +155,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,6 +171,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,6 +189,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -5,13 +5,15 @@
 
 #include "SFML/Network.hpp"
 #include "Receiver.h"
+#include "Sender.h"
+#include "AppContext.h"
 
 namespace Network {
 
 	class Server
 	{
 	public:
-		Server(int aPort);
+		Server(int aPort, SAppContext& appContext);
 		~Server() = default;
 
 		void Tick();
@@ -26,5 +28,8 @@ namespace Network {
 		sf::UdpSocket socket;
 
 		std::unique_ptr<Receiver> receiver;
+		std::unique_ptr<Sender> sender;
+
+		SAppContext& context;
 	};
 }

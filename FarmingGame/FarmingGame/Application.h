@@ -8,6 +8,9 @@
 #include "TextureBank.h"
 #include "StateStack.h"
 
+#include "Server.h"
+#include "Client.h"
+
 // ----------------------------------------------------------------------
 
 class CApplication
@@ -28,9 +31,19 @@ private:
 	CRenderer Renderer;
 	CTextureBank TextureBank;
 
+	// Messaging
+	CMessageQueue MessageQueue;
+
+	// Networking
+	CNetworkMessageQueue NetworkQueue;
+	std::unique_ptr<Network::Server> Server;
+	std::unique_ptr<Network::Client> Client;
+
 	SAppContext Context;
 
 	CStateStack StateStack;
+
+
 
 	bool ShouldRun;
 };

@@ -1,21 +1,23 @@
 #include "Client.h"
 #include "NetworkMessage.h"
+#include "SenderReceiverBridge.h"
 
-Network::Client::Client(const std::string aClientName, const sf::IpAddress& aServerIP, int aServerPort) :
+Network::Client::Client(const std::string& aClientName, const sf::IpAddress& aServerIP, int aServerPort, SAppContext& appContext) :
 name(aClientName),
 serverIP(aServerIP),
-serverPort(aServerPort)
+serverPort(aServerPort),
+context(appContext)
 {
 	socket.bind(sf::Socket::AnyPort);
 	socket.setBlocking(false);
-	receiver = std::make_unique<Receiver>(socket);
+
+	auto bridge = std::make_shared<SenderReceiverBridge>();
+	receiver = std::make_unique<Receiver>(socket, bridge, serverPort);
+	sender = std::make_unique<Sender>(socket, bridge, context.NetworkQueue, serverPort);
 
 	sf::Packet test;
 
-	ClientConnectMsg msg;
-	msg.name = "Joknom";
-	msg.Pack(test);
-	socket.send(test, aServerIP, aServerPort);
+	//context.NetworkQueue.DispatchEvent<NetworkMessage>();
 }
 
 void Network::Client::Tick()
@@ -23,8 +25,10 @@ void Network::Client::Tick()
 	receiver->Receive();
 
 	for (auto& msg : receiver->GetReceivedMessages()) {
-
+		
 	}
 
-	receiver->Flush();
+	receiver->Clear();
+
+	sender->Flush();
 }

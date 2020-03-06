@@ -1,31 +1,34 @@
 #pragma once
 #include "SFML/Network/UdpSocket.hpp"
 #include "NetworkMessage.h"
+#include "SenderReceiverBridge.h"
 
-#include <unordered_map>
+#include <map>
+#include <set>
 
 namespace Network {
 	class Receiver
 	{
 	public:
-		Receiver(sf::UdpSocket& aSocket);
+		Receiver(sf::UdpSocket& aSocket, std::shared_ptr<SenderReceiverBridge> senderBridge, int aResponsePort = sf::Socket::AnyPort);
 		~Receiver();
 
 		std::vector<Message*>& GetReceivedMessages() { return messages; }
 
 		void Receive();
-		void Flush();
+		void Clear();
 
 	private:
 
-		enum MessageType {
-			INTEGER,
-			STRING,
-			FLOAT,
-			// Add more as needed, e.g. 2FLOAT etc..
-		};
+		bool HandleGuaranteedMessage(size_t uid, const sf::IpAddress& sender);
 
 		sf::UdpSocket& socket;
 		std::vector<Message*> messages;
+		int responsePort;
+
+		//				  <uid, timestamp>
+		std::map<size_t, long long> receivedGuaranteedBuffer;
+
+		std::shared_ptr<SenderReceiverBridge> senderBridge;
 	};
 }
