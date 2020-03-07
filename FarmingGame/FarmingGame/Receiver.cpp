@@ -2,6 +2,8 @@
 
 #include "NetworkMessage.h"
 
+#include "Messages.h"
+
 #include "SFML/Network.hpp"
 #include <type_traits>
 
@@ -21,10 +23,11 @@
 */
 
 
-Network::Receiver::Receiver(sf::UdpSocket& aSocket, std::shared_ptr<SenderReceiverBridge> senderBridge, int aResponsePort) :
+Network::Receiver::Receiver(sf::UdpSocket& aSocket, std::shared_ptr<SenderReceiverBridge> senderBridge, SAppContext& appContext, int aResponsePort) :
 socket(aSocket),
 responsePort(aResponsePort),
-senderBridge(senderBridge)
+senderBridge(senderBridge),
+context(appContext)
 {
 }
 
@@ -65,10 +68,10 @@ void Network::Receiver::Receive()
 		packet >> typeID;
 
 		if (Message::MessageTypes.find(typeID) != Message::MessageTypes.end()) {
-			messages.push_back(Message::MessageTypes[typeID]->Copy());
-			auto& msg = messages.back();
-			msg->Unpack(packet);
-			msg->sender = sender;
+			auto message = (Message::MessageTypes[typeID]->Copy());
+			message->Unpack(packet);
+			message->sender = sender;
+			context.MessageQueue.DispatchEvent(message);
 		}
 	}
 }
@@ -88,7 +91,7 @@ bool Network::Receiver::HandleGuaranteedMessage(size_t uid, const sf::IpAddress&
 	if (receivedGuaranteedBuffer.find(uid) != receivedGuaranteedBuffer.end())
 	{
 		auto latestReceivedTime = receivedGuaranteedBuffer.at(uid);
-		if (timestamp.count() - latestReceivedTime < std::chrono::seconds(60).count()) {
+		if (timestamp.count() - latestReceivedTime < std::chrono::milliseconds(60000).count()) {
 			return true; // Has received this id within 60 seconds.
 		}
 

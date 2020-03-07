@@ -8,6 +8,8 @@
 #include "Sender.h"
 #include "AppContext.h"
 
+#include "Messaging/Subscribing/Subscriptions.h"
+
 namespace Network {
 
 	class Server
@@ -29,6 +31,8 @@ namespace Network {
 
 		std::unique_ptr<Receiver> receiver;
 		std::unique_ptr<Sender> sender;
+
+		CSubscriptions subs;
 
 		SAppContext& context;
 	};

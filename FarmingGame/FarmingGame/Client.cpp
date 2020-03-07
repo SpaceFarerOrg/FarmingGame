@@ -12,12 +12,12 @@ context(appContext)
 	socket.setBlocking(false);
 
 	auto bridge = std::make_shared<SenderReceiverBridge>();
-	receiver = std::make_unique<Receiver>(socket, bridge, serverPort);
+	receiver = std::make_unique<Receiver>(socket, bridge, context, serverPort);
 	sender = std::make_unique<Sender>(socket, bridge, context.NetworkQueue, serverPort);
 
 	sf::Packet test;
 
-	//context.NetworkQueue.DispatchEvent<NetworkMessage>();
+	context.NetworkQueue.DispatchEvent<NetworkMessage>(Message::Category::Guaranteed, aServerIP, aClientName);
 }
 
 void Network::Client::Tick()

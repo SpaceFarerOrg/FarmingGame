@@ -4,6 +4,7 @@
 #include "SFML/Network/IpAddress.hpp"
 
 #include "Messaging/Messages/BaseMessage.h"
+#include "Networking.h"
 
 #include <iostream>
 #include <type_traits>
@@ -16,22 +17,23 @@ namespace Network {
 	public:
 
 		NetworkMessage() { id = typeid(NetworkMessage).hash_code(); }
-		NetworkMessage(sf::Uint8 category, int to) { this->category = category; this->recipient = to; }
+		NetworkMessage(Message::Category category, sf::IpAddress to, const std::string& name) { this->category = (sf::Uint8)category; this->recipient = to.toInteger(); this->name = name; }
 
-		virtual Message* Copy() override {
-			return new std::remove_pointer<decltype(this)>::type(*this);
-		};
+		virtual Message* Copy() override {return new std::remove_pointer<decltype(this)>::type(*this);};
 
 		virtual void Pack(sf::Packet& aPacket) const override {
 			aPacket << id;
 			aPacket << category;
+			aPacket << name;
 		}
 
 		virtual void Unpack(sf::Packet& aPacket) override {
-			aPacket >> category;
+			aPacket >> category >> name;
 		};
 
 		sf::Uint8 category;
+		std::string name;
+
 		int recipient;
 	};
 }

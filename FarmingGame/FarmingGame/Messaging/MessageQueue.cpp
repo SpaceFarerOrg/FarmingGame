@@ -12,6 +12,11 @@ void CMessageQueue::Unsubscribe(const SSubscriptionHandle& InHandle)
 
 //------------------------------------------------------------------
 
+void CMessageQueue::DispatchEvent(Message* InMessage)
+{
+	EventQueue.push(InMessage);
+}
+
 void CMessageQueue::SendAllEvents()
 {
 	while (!EventQueue.empty())

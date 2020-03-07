@@ -63,7 +63,7 @@ void Network::Sender::Flush()
 
 		sf::Packet pack;
 
-		Message::ProtocolHeader header(Message::Category::NotGuaranteed, uid);
+		Message::ProtocolHeader header(Message::Category::Acknowledgement, uid);
 
 		pack = header.AsPacket();
 

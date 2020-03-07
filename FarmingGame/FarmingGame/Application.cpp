@@ -28,7 +28,7 @@ CApplication::CApplication()
 	StateStack.PushState(new CGameState());
 
 	Server = std::make_unique<Network::Server>(54000, Context);
-	Client = std::make_unique<Network::Client>("Pikachu", sf::IpAddress("192.168.1.1"), 54000, Context);
+	Client = std::make_unique<Network::Client>("Pikachu", sf::IpAddress("localhost"), 54000, Context);
 }
 
 // ----------------------------------------------------------------------
@@ -58,9 +58,6 @@ void CApplication::Tick()
 	Renderer.RunRender(Window);
 
 	Window.display();
-
-	NetworkQueue.DispatchEvent<Network::NetworkMessage>(1, sf::IpAddress("localhost").toInteger());
-	MessageQueue.DispatchEvent<Network::NetworkMessage>(0, 0);
 
 	Server->Tick();
 	Client->Tick();

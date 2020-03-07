@@ -23,6 +23,8 @@ public:
 	template<typename MessageType, typename ... Params>
 	void DispatchEvent(Params... InParams);
 
+	void DispatchEvent(Message* InMessage);
+
 	void SendAllEvents();
 private:
 	bool ContainsSubscriberListOfType(size_t InTypeHash) const;

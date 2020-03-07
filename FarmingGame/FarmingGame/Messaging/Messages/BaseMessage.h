@@ -76,8 +76,16 @@ public:
 	size_t id = 0;
 };
 
+#define DEFINE_MSG(name, type01, var01) class name : public Message { public: name(const type01& arg01) \
+{ id=typeid(name).hash_code(); var01=arg01; } \
+type01 var01; \
+virtual Message* Copy() override {return new std::remove_pointer<decltype(this)>::type(*this);}; \
+virtual void Pack(sf::Packet& aPacket) const override { aPacket << id << var01; } \
+virtual void Unpack(sf::Packet& aPacket) override { aPacket >> var01; } \
+  }; \
 
-#define DEFINE_MSG(NAME) struct NAME : public SS::SBaseMessage { NAME(){} };
-#define DEFINE_MSG_ONEPARAM(NAME, PARAMTYPE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam) : Param(InParam) {} PARAMTYPE Param; };
-#define DEFINE_MSG_TWOPARAM(NAME, PARAMTYPE, PARAMTYPETWO) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo) : Param(InParam), ParamTwo(InParamTwo) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; };
-#define DEFINE_MSG_THREEPARAM(NAME, PARAMTYPE, PARAMTYPETWO, PARAMTYPETHREE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo, const PARAMTYPETHREE& InParamThree) : Param(InParam), ParamTwo(InParamTwo), ParamThree(InParamThree) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; PARAMTYPETHREE ParamThree; };
+
+// #define DEFINE_MSG(NAME) struct NAME : public SS::SBaseMessage { NAME(){} };
+// #define DEFINE_MSG_ONEPARAM(NAME, PARAMTYPE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam) : Param(InParam) {} PARAMTYPE Param; };
+// #define DEFINE_MSG_TWOPARAM(NAME, PARAMTYPE, PARAMTYPETWO) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo) : Param(InParam), ParamTwo(InParamTwo) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; };
+// #define DEFINE_MSG_THREEPARAM(NAME, PARAMTYPE, PARAMTYPETWO, PARAMTYPETHREE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo, const PARAMTYPETHREE& InParamThree) : Param(InParam), ParamTwo(InParamTwo), ParamThree(InParamThree) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; PARAMTYPETHREE ParamThree; };

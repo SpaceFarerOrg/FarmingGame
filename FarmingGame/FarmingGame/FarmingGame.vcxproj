@@ -47,6 +47,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameStates.h" />
+    <ClInclude Include="Messages.h" />
     <ClInclude Include="Messaging\MessageQueue.h" />
     <ClInclude Include="Messaging\Messages\BaseMessage.h" />
     <ClInclude Include="Messaging\Subscribing\MessageSubscriberList.h" />
