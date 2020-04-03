@@ -1,5 +1,7 @@
 #pragma once
 #include "Messaging/Messages/BaseMessage.h"
 
-DEFINE_MSG(ConnectionAccepted, std::string, hostName);
+#include <SFML/Window/Keyboard.hpp>
+
+DEFINE_MSG_ONE_PARAM(ConnectionAccepted, std::string, hostName)
 

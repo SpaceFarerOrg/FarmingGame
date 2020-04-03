@@ -76,16 +76,56 @@ public:
 	size_t id = 0;
 };
 
-#define DEFINE_MSG(name, type01, var01) class name : public Message { public: name(const type01& arg01) \
-{ id=typeid(name).hash_code(); var01=arg01; } \
+
+// Internal Defines
+#define MSG_DEFINE_SET_ID(name) id=typeid(name).hash_code()
+#define MSG_DEFINE_COPY_FUNC(name) virtual Message* Copy() override { return new name(*this); }
+
+/*
+Define a message with no members
+@name : The type name of the message
+*/
+#define DEFINE_MSG(name) class name : public Message \
+{ public: \
+name() { MSG_DEFINE_SET_ID(name); } \
+MSG_DEFINE_COPY_FUNC(name) \
+virtual void Pack( sf::Packet& OutPacket ) const override { OutPacket << id; } \
+virtual void Unpack( sf::Packet& InPacket ) override {} \
+}; \
+
+/*
+Define a message with one member
+@name : The type name of the message
+@type01 : The type of the member
+@var01 : The name of the member
+*/
+#define DEFINE_MSG_ONE_PARAM(name, type01, var01) class name : public Message \
+{ public: \
+name() { MSG_DEFINE_SET_ID(name); } \
+name(const type01& arg01) { MSG_DEFINE_SET_ID(name); var01=arg01; } \
 type01 var01; \
-virtual Message* Copy() override {return new std::remove_pointer<decltype(this)>::type(*this);}; \
+MSG_DEFINE_COPY_FUNC(name) \
 virtual void Pack(sf::Packet& aPacket) const override { aPacket << id << var01; } \
 virtual void Unpack(sf::Packet& aPacket) override { aPacket >> var01; } \
-  }; \
+}; \
 
 
-// #define DEFINE_MSG(NAME) struct NAME : public SS::SBaseMessage { NAME(){} };
-// #define DEFINE_MSG_ONEPARAM(NAME, PARAMTYPE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam) : Param(InParam) {} PARAMTYPE Param; };
-// #define DEFINE_MSG_TWOPARAM(NAME, PARAMTYPE, PARAMTYPETWO) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo) : Param(InParam), ParamTwo(InParamTwo) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; };
-// #define DEFINE_MSG_THREEPARAM(NAME, PARAMTYPE, PARAMTYPETWO, PARAMTYPETHREE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo, const PARAMTYPETHREE& InParamThree) : Param(InParam), ParamTwo(InParamTwo), ParamThree(InParamThree) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; PARAMTYPETHREE ParamThree; };
+/*
+Define a message with two members
+@name : The type name of the message
+@type01 : The type of the first member
+@var01 : The name of the first member
+@type02 : The type of the second member
+@var02 : The name of the second member
+*/
+#define DEFINE_MSG_TWO_PARAM( name, type01, var01, type02, var02 ) class name : public Message \
+{ public: \
+name() { MSG_DEFINE_SET_ID(name); } \
+name( const type01& arg01, const type02& arg02 ) { MSG_DEFINE_SET_ID(name); var01=arg01; var02 = arg02; } \
+type01 var01; \
+type02 var02; \
+MSG_DEFINE_COPY_FUNC(name) \
+virtual void Pack( sf::Packet& OutPacket ) const override { OutPacket << id << var01 << var02; } \
+virtual void Unpack( sf::Packet& InPacket ) override { InPacket >> var01 >> var02; } \
+}; \
+
