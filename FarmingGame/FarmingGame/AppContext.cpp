@@ -6,11 +6,13 @@ SAppContext::SAppContext(
 	CRenderQueue& InRenderQueue,
 	CTextureBank& InTextureBank,
 	CMessageQueue& InMessageQueue,
-	CNetworkMessageQueue& InNetworkQueue)
+	CNetworkMessageQueue& InNetworkQueue,
+	IInputState& InInputState)
 	: RenderQueue(InRenderQueue)
 	, TextureBank(InTextureBank)
 	, MessageQueue(InMessageQueue)
 	, NetworkQueue(InNetworkQueue)
+	, InputState(InInputState)
 {
 }
 

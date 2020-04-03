@@ -11,8 +11,9 @@ CApplication::CApplication()
 	: Window()
 	, Renderer()
 	, TextureBank()
+	, InputManager()
+	, Context(Renderer.GetQueue(), TextureBank, MessageQueue, NetworkQueue, InputManager)
 	, StateStack(Context)
-	, Context(Renderer.GetQueue(), TextureBank, MessageQueue, NetworkQueue)
 	, ShouldRun(true)
 {
 	Message::RegisterNetworkMessages();
@@ -27,8 +28,8 @@ CApplication::CApplication()
 
 	StateStack.PushState(new CGameState());
 
-	Server = std::make_unique<Network::Server>(54000, Context);
-	Client = std::make_unique<Network::Client>("Pikachu", sf::IpAddress("localhost"), 54000, Context);
+	//Server = std::make_unique<Network::Server>(54000, Context);
+	Client = std::make_unique<Network::Client>("Jokmokks Jocke", sf::IpAddress("81.231.243.157"), 54000, Context);
 }
 
 // ----------------------------------------------------------------------
@@ -48,6 +49,7 @@ void CApplication::Tick()
 	const float DeltaTime = TickTimer.getElapsedTime().asSeconds();
 	TickTimer.restart();
 
+	InputManager.StartNewFrame();
 	HandleWindowEvents();
 
 	Window.clear(sf::Color(50, 150, 250, 250));
@@ -59,7 +61,7 @@ void CApplication::Tick()
 
 	Window.display();
 
-	Server->Tick();
+	//Server->Tick();
 	Client->Tick();
 }
 
@@ -73,6 +75,14 @@ void CApplication::HandleWindowEvents()
 		if (Event.type == sf::Event::Closed)
 		{
 			ShouldRun = false;
+		}
+		else if (Event.type == sf::Event::KeyPressed)
+		{
+			InputManager.SetCurrentKeyState(Event.key.code, EKeyState::Down);
+		}
+		else if (Event.type == sf::Event::KeyReleased)
+		{
+			InputManager.SetCurrentKeyState(Event.key.code, EKeyState::Up);
 		}
 	}
 }

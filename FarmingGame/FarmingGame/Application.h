@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "TextureBank.h"
 #include "StateStack.h"
+#include "InputManager.h"
 
 #include "Server.h"
 #include "Client.h"
@@ -39,11 +40,12 @@ private:
 	std::unique_ptr<Network::Server> Server;
 	std::unique_ptr<Network::Client> Client;
 
+	// Input
+	CInputManager InputManager;
+
 	SAppContext Context;
 
 	CStateStack StateStack;
-
-
 
 	bool ShouldRun;
 };
