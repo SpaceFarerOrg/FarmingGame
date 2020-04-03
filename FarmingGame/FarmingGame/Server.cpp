@@ -20,11 +20,6 @@ void Network::Server::Tick()
 {
 	receiver->Receive();
 
-	for (auto& msg : receiver->GetReceivedMessages()) {
-		if (auto client = dynamic_cast<NetworkMessage*>(msg)) {
-			//std::cout << "Client: \"" << client-> << "\" connected!" << std::endl;
-		}
-	}
 
 	receiver->Clear();
 
