@@ -2,14 +2,14 @@
 #include <vector>
 
 class CBaseState;
-struct SAppContext;
+class CContextServiceProvider;
 
 // ----------------------------------------------------------------------
 
 class CStateStack
 {
 public:
-	CStateStack( SAppContext& InAppContext );
+	CStateStack( CContextServiceProvider& InServiceProvider );
 
 	void PushState(CBaseState* InState);
 	void PopState();
@@ -23,7 +23,7 @@ private:
 	void DrawLayer(unsigned int LayerToRender);
 
 	std::vector< CBaseState* > States;
-	SAppContext& AppContext;
+	CContextServiceProvider& ServiceProvider;
 };
 
 // ----------------------------------------------------------------------

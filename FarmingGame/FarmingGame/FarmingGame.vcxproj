@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppContext.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameBoard.cpp" />
@@ -41,10 +40,11 @@
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppContext.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="BoardSquare.h" />
+    <ClInclude Include="ContextServiceInterface.h" />
+    <ClInclude Include="ContextServiceProvider.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameStates.h" />
@@ -69,6 +69,7 @@
     <ClInclude Include="Networking.h" />
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="WindowAccessorService.h" />
     <ClInclude Include="WorldGrid.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

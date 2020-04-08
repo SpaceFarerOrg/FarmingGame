@@ -3,6 +3,7 @@
 #include "NetworkMessage.h"
 
 #include "Messages.h"
+#include "Messaging/MessageQueue.h"
 
 #include "SFML/Network.hpp"
 #include <type_traits>
@@ -13,7 +14,7 @@
 
 /*
 	Packet structure:
-	--HEADER-- 
+	--HEADER--
 	Category : sf::Uint8
 	UID		 : size_t
 
@@ -23,11 +24,11 @@
 */
 
 
-Network::Receiver::Receiver(sf::UdpSocket& aSocket, std::shared_ptr<SenderReceiverBridge> senderBridge, SAppContext& appContext, int aResponsePort) :
-socket(aSocket),
-responsePort(aResponsePort),
-senderBridge(senderBridge),
-context(appContext)
+Network::Receiver::Receiver(sf::UdpSocket& aSocket, std::shared_ptr<SenderReceiverBridge> senderBridge, CContextServiceProvider& InServiceProvider, int aResponsePort) :
+	socket(aSocket),
+	responsePort(aResponsePort),
+	senderBridge(senderBridge),
+	ServiceProvider(InServiceProvider)
 {
 }
 
@@ -71,7 +72,7 @@ void Network::Receiver::Receive()
 			auto message = (Message::MessageTypes[typeID]->Copy());
 			message->Unpack(packet);
 			message->sender = sender;
-			context.MessageQueue.DispatchEvent(message);
+			ServiceProvider.GetServiceRequired<CMessageQueue>().DispatchEvent(message);
 		}
 	}
 }
@@ -87,7 +88,7 @@ bool Network::Receiver::HandleGuaranteedMessage(size_t uid, const sf::IpAddress&
 
 	auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
 
-	
+
 	if (receivedGuaranteedBuffer.find(uid) != receivedGuaranteedBuffer.end())
 	{
 		auto latestReceivedTime = receivedGuaranteedBuffer.at(uid);

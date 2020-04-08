@@ -7,7 +7,7 @@
 
 // ----------------------------------------------------------------------
 
-struct SAppContext;
+class CContextServiceProvider;
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +35,10 @@ public:
 	void MovePlayer(unsigned int InPlayerID, unsigned int InMoveAmount);
 	const CBoardSquareBase& GetPlayerBoardSquare( unsigned int InPlayerID ) const;
 
-	void Load(SAppContext& InAppContext);
-	void Draw(SAppContext& InAppContext);
+	void Load(CContextServiceProvider& InServiceProvider);
+	void Draw(CContextServiceProvider& InServiceProvider);
 private:
-	void SetUpBoard(SAppContext& InAppContext);
+	void SetUpBoard(CContextServiceProvider& InServiceProvider);
 
 	constexpr static unsigned int RowLen = 6;
 	constexpr static unsigned int RowCount = 4;

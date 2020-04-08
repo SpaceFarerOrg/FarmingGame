@@ -12,7 +12,10 @@
 #include "Subscribing/Subscriptions.h"
 #include "Subscribing/SubscriptionHandle.h"
 
+#include "../ContextServiceInterface.h"
+
 class CMessageQueue
+	: public IContextService
 {
 public:
 	template<typename MessageType>

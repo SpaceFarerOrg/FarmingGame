@@ -2,13 +2,14 @@
 #include "SFML/Network.hpp"
 #include "Receiver.h"
 #include "Sender.h"
-#include "AppContext.h"
+
+#include "ContextServiceProvider.h"
 
 namespace Network {
 	class Client
 	{
 	public:
-		Client(const std::string& aClientName, const sf::IpAddress& aServerIP, int aServerPort, SAppContext& appContext);
+		Client(const std::string& aClientName, const sf::IpAddress& aServerIP, int aServerPort, CContextServiceProvider& InServiceProvider);
 		~Client() = default;
 
 		void Tick();
@@ -23,6 +24,6 @@ namespace Network {
 		std::unique_ptr<Receiver> receiver;
 		std::unique_ptr<Sender> sender;
 
-		SAppContext& context;
+		CContextServiceProvider& ServiceProvider;
 	};
 }

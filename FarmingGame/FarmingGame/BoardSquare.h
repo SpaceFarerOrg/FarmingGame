@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "GameStates.h"
-#include "AppContext.h"
+
+#include "TextureBank.h"
+#include "RenderQueue.h"
 
 // ----------------------------------------------------------------------
 
@@ -17,10 +19,10 @@ public:
 		SquareSize = InSquareSize;
 	}
 
-	void Load(SAppContext& InContext)
+	void Load(CTextureBank& InTextureBank)
 	{
 		Sprite.setSize(sf::Vector2f(static_cast<float>(SquareSize), static_cast<float>(SquareSize)));
-		Sprite.setTexture(&InContext.TextureBank.GetTexture(Name.c_str()));
+		Sprite.setTexture(&InTextureBank.GetTexture(Name.c_str()));
 	}
 
 	sf::Vector2f GetPosition() const
@@ -33,9 +35,9 @@ public:
 		Sprite.setPosition(sf::Vector2f(static_cast<float>(InTileX * SquareSize), static_cast<float>(InTileY * SquareSize) ));
 	}
 
-	void DrawAt(SAppContext& InContext)
+	void DrawAt(CRenderQueue& InRenderQueue)
 	{
-		InContext.RenderQueue.EnqueueCommand(Sprite);
+		InRenderQueue.EnqueueCommand(Sprite);
 	}
 
 	virtual ESubState GetExecuteState() const = 0;

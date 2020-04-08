@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "AppContext.h"
+#include "ContextServiceProvider.h"
 
 // ----------------------------------------------------------------------
 
@@ -48,30 +48,32 @@ const CBoardSquareBase& CGameBoard::GetPlayerBoardSquare(unsigned int InPlayerID
 
 // ----------------------------------------------------------------------
 
-void CGameBoard::Load(SAppContext& InAppContext)
+void CGameBoard::Load(CContextServiceProvider& InServiceProvider)
 {
-	SetUpBoard(InAppContext);
+	SetUpBoard(InServiceProvider);
 }
 
 // ----------------------------------------------------------------------
 
-void CGameBoard::Draw(SAppContext& InAppContext)
+void CGameBoard::Draw(CContextServiceProvider& InServiceProvider)
 {
+	CRenderQueue& RenderQueue = InServiceProvider.GetServiceRequired< CRenderQueue >();
+
 	for (CBoardSquareBase* Tile : BoardRows)
 	{
-		Tile->DrawAt(InAppContext);
+		Tile->DrawAt(RenderQueue);
 	}
 
 	for (unsigned int PlayerID = 0; PlayerID < PlayerCount; ++PlayerID)
 	{
 		PlayerSprites[PlayerID].setPosition(BoardRows[PlayerTilePosition[PlayerID]]->GetPosition());
-		InAppContext.RenderQueue.EnqueueCommand(PlayerSprites[PlayerID]);
+		RenderQueue.EnqueueCommand(PlayerSprites[PlayerID]);
 	}
 }
 
 // ----------------------------------------------------------------------
 
-void CGameBoard::SetUpBoard(SAppContext& InAppContext)
+void CGameBoard::SetUpBoard(CContextServiceProvider& InServiceProvider)
 {
 	// Set up squares
 	BoardRows = {
@@ -90,12 +92,14 @@ void CGameBoard::SetUpBoard(SAppContext& InAppContext)
 	unsigned int TileX = 0;
 	unsigned int TileY = 0;
 
+	CTextureBank& TextureBank = InServiceProvider.GetServiceRequired<CTextureBank>();
+
 	for (unsigned int i = 0; i < TileCount; ++i)
 	{
 		CBoardSquareBase* BoardSquare = BoardRows[i];
 		
 		BoardSquare->SetSquareSize(BoardTileSize);
-		BoardSquare->Load(InAppContext);
+		BoardSquare->Load(TextureBank);
 
 		if (i / RowLen == 0)
 		{

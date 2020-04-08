@@ -1,5 +1,5 @@
 #pragma once
-#include "AppContext.h"
+#include "ContextServiceProvider.h"
 
 // ----------------------------------------------------------------------
 
@@ -25,11 +25,11 @@ class CBaseState
 public:
 	virtual EStateType GetType() = 0;
 
-	virtual void OnStart(SAppContext& InAppContext) {};
-	virtual void OnStop(SAppContext& InAppContext) {};
+	virtual void OnStart(CContextServiceProvider& InServiceProvider) {};
+	virtual void OnStop(CContextServiceProvider& InServiceProvider) {};
 
-	virtual EStateTickResult Tick(float InTimeDelta, SAppContext& InAppContext) { return EStateTickResult::Pop; };
-	virtual void Render(SAppContext& InAppContext) {};
+	virtual EStateTickResult Tick(float InTimeDelta, CContextServiceProvider& InServiceProvider) { return EStateTickResult::Pop; };
+	virtual void Render(CContextServiceProvider& InServiceProvider) {};
 };
 
 // ----------------------------------------------------------------------

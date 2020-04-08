@@ -3,14 +3,14 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 
-#include "AppContext.h"
-#include "Renderer.h"
-#include "TextureBank.h"
 #include "StateStack.h"
-#include "InputManager.h"
+
+#include "Renderer.h"
 
 #include "Server.h"
 #include "Client.h"
+
+#include "ContextServiceProvider.h"
 
 // ----------------------------------------------------------------------
 
@@ -25,25 +25,17 @@ public:
 private:
 	void HandleWindowEvents();
 
+	void RegisterServices();
+
 	sf::RenderWindow Window;
 	sf::Clock TickTimer;
 
-	// Rendering
-	CRenderer Renderer;
-	CTextureBank TextureBank;
+	CContextServiceProvider ServiceProvider;
 
-	// Messaging
-	CMessageQueue MessageQueue;
-
-	// Networking
-	CNetworkMessageQueue NetworkQueue;
 	std::unique_ptr<Network::Server> Server;
 	std::unique_ptr<Network::Client> Client;
 
-	// Input
-	CInputManager InputManager;
-
-	SAppContext Context;
+	CRenderer Renderer;
 
 	CStateStack StateStack;
 

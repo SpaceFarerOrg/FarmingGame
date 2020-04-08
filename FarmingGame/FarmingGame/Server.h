@@ -6,7 +6,8 @@
 #include "SFML/Network.hpp"
 #include "Receiver.h"
 #include "Sender.h"
-#include "AppContext.h"
+#include "ContextServiceProvider.h"
+
 
 #include "Messaging/Subscribing/Subscriptions.h"
 
@@ -15,7 +16,7 @@ namespace Network {
 	class Server
 	{
 	public:
-		Server(int aPort, SAppContext& appContext);
+		Server(int aPort, CContextServiceProvider& InServiceProvider);
 		~Server() = default;
 
 		void Tick();
@@ -34,6 +35,6 @@ namespace Network {
 
 		CSubscriptions subs;
 
-		SAppContext& context;
+		CContextServiceProvider& ServiceProvider;
 	};
 }

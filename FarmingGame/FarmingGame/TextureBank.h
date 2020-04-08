@@ -4,9 +4,12 @@
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
 
+#include "ContextServiceInterface.h"
+
 // ----------------------------------------------------------------------
 
 class CTextureBank
+	: public IContextService
 {
 public:
 	CTextureBank();

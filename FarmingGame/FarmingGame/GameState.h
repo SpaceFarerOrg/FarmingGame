@@ -5,7 +5,8 @@
 #include "BaseState.h"
 #include "GameBoard.h"
 
-struct SAppContext;
+class CContextServiceProvider;
+class CRenderQueue;
 
 // ----------------------------------------------------------------------
 
@@ -17,12 +18,12 @@ public:
 
 	EStateType GetType() override { return EStateType::Full; }
 
-	void OnStart(SAppContext& InContext) override;
+	void OnStart(CContextServiceProvider& InServiceProvider) override;
 
-	EStateTickResult Tick(float InTimeDelta, SAppContext& InAppContext) override;
-	void Render(SAppContext& InAppContext) override;
+	EStateTickResult Tick(float InTimeDelta, CContextServiceProvider& InServiceProvider) override;
+	void Render(CContextServiceProvider& InServiceProvider) override;
 private:
-	void DrawBackground(SAppContext& InContext);
+	void DrawBackground(CContextServiceProvider& InServiceProvider);
 
 	unsigned int TileSize;
 

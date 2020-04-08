@@ -2,7 +2,10 @@
 
 #include "Messaging/MessageQueue.h"
 
-class CNetworkMessageQueue : public CMessageQueue
+#include "ContextServiceInterface.h"
+
+class CNetworkMessageQueue 
+	: public CMessageQueue
 {
 
 };

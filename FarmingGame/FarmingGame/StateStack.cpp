@@ -2,12 +2,12 @@
 
 #include "BaseState.h"
 
-#include "AppContext.h"
+#include "ContextServiceProvider.h"
 
 // ----------------------------------------------------------------------
 
-CStateStack::CStateStack(SAppContext& InAppContext)
-	: AppContext(InAppContext)
+CStateStack::CStateStack(CContextServiceProvider& InServiceProvider)
+	: ServiceProvider(InServiceProvider)
 {
 }
 
@@ -16,14 +16,14 @@ CStateStack::CStateStack(SAppContext& InAppContext)
 void CStateStack::PushState(CBaseState* InState)
 {
 	States.push_back(InState);
-	States.back()->OnStart(AppContext);
+	States.back()->OnStart(ServiceProvider);
 }
 
 // ----------------------------------------------------------------------
 
 void CStateStack::PopState()
 {
-	States.back()->OnStop(AppContext);
+	States.back()->OnStop(ServiceProvider);
 	delete States.back();
 	States.pop_back();
 }
@@ -63,7 +63,7 @@ void CStateStack::TickLayer(float InDeltaTime, unsigned int LayerToTick)
 		TickLayer(InDeltaTime, LayerToTick - 1);
 	}
 
-	if (States[LayerToTick]->Tick(InDeltaTime, AppContext) == EStateTickResult::Pop)
+	if (States[LayerToTick]->Tick(InDeltaTime, ServiceProvider) == EStateTickResult::Pop)
 	{
 		PopState();
 	}
@@ -79,7 +79,7 @@ void CStateStack::DrawLayer(unsigned int LayerToRender)
 		DrawLayer(LayerToRender - 1);
 	}
 
-	States[LayerToRender]->Render(AppContext);
+	States[LayerToRender]->Render(ServiceProvider);
 }
 
 // ----------------------------------------------------------------------

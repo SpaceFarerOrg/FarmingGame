@@ -3,7 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <array>
 
-struct SAppContext;
+#include "ContextServiceInterface.h"
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +16,7 @@ enum class EKeyState
 // ----------------------------------------------------------------------
 
 class IInputState
+	: public IContextService
 {
 public:
 	virtual bool IsKeyPressed(sf::Keyboard::Key InKey) const = 0;
